@@ -23,7 +23,9 @@ namespace OpenCVMarkerLessAR_Extension
         public List<ReferenceImage> ReferenceImageList = new List<ReferenceImage>();
         public Camera ARCamera;
         public GameObject ARObjectPrefab;
+        public Vector3 ARObjLocalRotEuler;
 
+        private Dictionary<string, Texture2D> _TextureImages = new Dictionary<string, Texture2D>();
         private Dictionary<string, Pattern> _Patterns = new Dictionary<string, Pattern>();
         private Dictionary<string, PatternDetector> _PatternDetectors = new Dictionary<string, PatternDetector>();
         private Dictionary<string, GameObject> _ARObjects = new Dictionary<string, GameObject>();
@@ -74,6 +76,8 @@ namespace OpenCVMarkerLessAR_Extension
 
                 _Patterns[patternTexture.name] = pattern;
                 _PatternDetectors[patternTexture.name] = patternDetector;
+
+                _TextureImages[patternTexture.name] = patternTexture;
             }
 
             Debug.Log("**** _Patterns.Count @Initialize(): " + _Patterns.Count);
@@ -196,9 +200,13 @@ namespace OpenCVMarkerLessAR_Extension
                         ARGameObject = GameObject.Instantiate(ARObjectPrefab, Vector3.zero, Quaternion.identity);
                         ARGameObject.name = ARObjectPrefab.name + "_" + patternName;
                         _ARObjects[patternName] = ARGameObject;
+
+                        Material material = ARGameObject.GetComponentInChildren<MeshRenderer>().material;
+                        material.mainTexture = _TextureImages[patternName];
                     }
 
                     ARUtils.SetTransformFromMatrix(ARGameObject.transform, ref ARM);
+                    ARGameObject.transform.Rotate(ARObjLocalRotEuler);
                 }
             }
         }

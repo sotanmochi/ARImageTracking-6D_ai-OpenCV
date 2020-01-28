@@ -308,8 +308,9 @@ MonoBehaviour:
   - Texture: {fileID: 2800000, guid: 1f62e395026e9944e99c550c089f6ff3, type: 3}
     ImageSizeScale: 0.13
   ARCamera: {fileID: 1476250554}
-  ARObjectPrefab: {fileID: 8654371518109555987, guid: 0edd9c73882f94f4fb01eccbb328822a,
+  ARObjectPrefab: {fileID: 7205862348405198989, guid: 31192201a55bb40f09a5959788c684f1,
     type: 3}
+  ARObjLocalRotEuler: {x: 90, y: 0, z: 0}
 --- !u!114 &859997461
 MonoBehaviour:
   m_ObjectHideFlags: 0
